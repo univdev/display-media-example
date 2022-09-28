@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useCallback, useEffect, useState } from "react";
+import { DisplayMediaHandler } from "./utils/DisplayMediaHandler";
 
-function App() {
+export const App = () => {
+  const [videoElement, setVideoElement] = useState<HTMLVideoElement>();
+  const [displayMediaHandler] = useState<DisplayMediaHandler>(new DisplayMediaHandler());
+  const callbackRefVideo = (node: HTMLVideoElement | null) => {
+    if (node) setVideoElement(node);
+  };
+
+  const startShareScreen = useCallback(() => {
+    if (!videoElement) return;
+    
+    displayMediaHandler.start().then((stream) => {
+      videoElement.srcObject = stream as unknown as MediaProvider;
+    });
+
+  }, [
+    videoElement,
+    displayMediaHandler
+  ]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <video
+        ref={(node) => callbackRefVideo(node)}
+        autoPlay
+        width={1280}
+        height={768}
+        style={{
+          width: '100%',
+          backgroundColor: 'black'
+        }}
+      ></video>
+
+      <button type="button" onClick={() => startShareScreen()}>Share Screen</button>
     </div>
   );
-}
-
-export default App;
+};
