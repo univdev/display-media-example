@@ -1,4 +1,4 @@
-# getDisplayMedia 함수 예제
+# WebRTC API Example
 ## 개요 (Introduction)
 `WebRTC` API의 일종인 `getDisplayMedia` 함수를 사용한 예제입니다.
 
