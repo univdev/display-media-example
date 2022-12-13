@@ -10,8 +10,9 @@
 ```
 git clone https://github.com/univdev/display-media-example
 cd display-media-example
-yarn
-yarn start
+
+yarn        # 패키지 설치
+yarn start  # 프로젝트 실행
 ```
 
 [레퍼런스]: https://developer.mozilla.org/ko/docs/Web/API/WebRTC_API
